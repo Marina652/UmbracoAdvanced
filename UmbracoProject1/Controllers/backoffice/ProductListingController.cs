@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Cms.Web.Common.PublishedModels;
 using UmbracoProject1.umbraco;
 
 namespace UmbracoProject1.Controllers.backoffice;
