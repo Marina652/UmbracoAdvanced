@@ -1,3 +1,5 @@
+using UmbracoProject1.umbraco;
+
 namespace UmbracoProject1
 {
     public class Startup
@@ -34,6 +36,8 @@ namespace UmbracoProject1
                 .AddWebsite()
                 .AddComposers()
                 .Build();
+
+            services.AddTransient<IProductService, ProductService>();
         }
 
         /// <summary>
