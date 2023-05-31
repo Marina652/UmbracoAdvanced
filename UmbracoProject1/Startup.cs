@@ -1,4 +1,5 @@
-using UmbracoProject1.umbraco;
+using Microsoft.EntityFrameworkCore;
+using OpenIddict.Abstractions;
 
 namespace UmbracoProject1
 {
@@ -37,7 +38,65 @@ namespace UmbracoProject1
                 .AddComposers()
                 .Build();
 
-            services.AddTransient<IProductService, ProductService>();
+            services.AddDbContext<DbContext>(options =>
+            {
+                options.UseInMemoryDatabase(nameof(DbContext));
+
+                options.UseOpenIddict();
+            });
+
+            services.AddOpenIddict()
+                .AddCore(options =>
+                {
+                    options.UseEntityFrameworkCore()
+                    .UseDbContext<DbContext>();
+                })
+                .AddServer(options =>
+                {
+                    options.AllowClientCredentialsFlow();
+
+                    options.SetTokenEndpointUris("connect/token");
+
+                    options.AddEphemeralEncryptionKey()
+                        .AddEphemeralSigningKey();
+
+                    // certificate
+                    // Registering a certificate (recommended for production-ready scenarios)
+
+                    //string certificateThumbprint = _config["Auth:CertificateThumbprint"];
+
+                    //using (X509Store certStore = new(StoreName.My, StoreLocation.CurrentUser))
+                    //{
+                    //    certStore.Open(OpenFlags.ReadOnly);
+
+                    //    X509Certificate2Collection certCollection = certStore.Certificates.Find(
+                    //        X509FindType.FindByThumbprint,
+                    //        certificateThumbprint,
+                    //        true);
+
+                    //    // Get the first cert with the thumbprint
+                    //    X509Certificate2 cert = certCollection.OfType<X509Certificate2>().FirstOrDefault();
+
+                    //    if (cert is null)
+                    //        throw new Exception($"Certificate with thumbprint {certificateThumbprint} was not found");
+
+                    //    options.AddSigningCertificate(cert);
+                    //    options.AddEncryptionCertificate(cert);
+                    //}
+
+
+                    // now you can't see token data
+                    //options.DisableAccessTokenEncryption();
+
+                    options.UseAspNetCore()
+                        .EnableAuthorizationEndpointPassthrough()
+                        .EnableTokenEndpointPassthrough();
+                })
+                .AddValidation(options =>
+                {
+                    options.UseLocalServer();
+                    options.UseAspNetCore();
+                });
         }
 
         /// <summary>
@@ -64,6 +123,37 @@ namespace UmbracoProject1
                     u.UseBackOfficeEndpoints();
                     u.UseWebsiteEndpoints();
                 });
+
+            InitializeClientAsync(app.ApplicationServices, CancellationToken.None)
+                .GetAwaiter().GetResult();
+        }
+
+        private async Task InitializeClientAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken)
+        {
+            using var scope = serviceProvider.CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<DbContext>();
+            await context.Database.EnsureCreatedAsync(cancellationToken);
+
+            var manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
+
+            if (await manager.FindByClientIdAsync("postman", cancellationToken) is null)
+            {
+                await manager.CreateAsync(new OpenIddictApplicationDescriptor
+                {
+                    ClientId = "postman",
+                    ClientSecret = "postman-secret",
+                    DisplayName = "Postman Client",
+                    Permissions =
+                    {
+                        OpenIddictConstants.Permissions.Endpoints.Token,
+                        OpenIddictConstants.Permissions.GrantTypes.ClientCredentials,
+                        OpenIddictConstants.Permissions.Scopes.Roles,
+
+                        //OpenIddictConstants.Permissions.Prefixes.Scope,
+                    }
+                });
+            }
         }
     }
 }
