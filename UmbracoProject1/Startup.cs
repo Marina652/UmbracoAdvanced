@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Notifications;
 using UmbracoProject1.Extensions;
+using UmbracoProject1.NotificationsHandlers;
 
 namespace UmbracoProject1
 {
@@ -38,6 +41,10 @@ namespace UmbracoProject1
                 .AddWebsite()
                 .AddComposers()
                 .AddContactRequestTable()
+                .AddNotificationHandler<ContentPublishedNotification, ContentPublishedNotificationHandler>()
+                .AddNotificationHandler<ContentPublishingNotification, ContentPublishingNotificationHandler>()
+                .AddNotificationHandler<SendingContentNotification, SendingContentNotificationHandler>()
+                .AddNotificationHandler<MenuRenderingNotification, MenuRenderingNotificationHandler>()
                 .Build();
 
             services.AddDbContext<DbContext>(options =>
