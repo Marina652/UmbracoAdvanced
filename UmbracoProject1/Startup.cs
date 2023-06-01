@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
+using UmbracoProject1.Extensions;
 
 namespace UmbracoProject1
 {
@@ -36,6 +37,7 @@ namespace UmbracoProject1
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
+                .AddContactRequestTable()
                 .Build();
 
             services.AddDbContext<DbContext>(options =>

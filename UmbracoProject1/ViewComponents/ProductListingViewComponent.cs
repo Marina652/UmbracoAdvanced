@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UmbracoProject1.umbraco;
+using UmbracoProject1.umbraco.Services;
 using UmbracoProject1.ViewModels;
 
 namespace UmbracoProject1.ViewComponents;

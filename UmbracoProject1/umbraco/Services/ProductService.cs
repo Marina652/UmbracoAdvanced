@@ -2,7 +2,7 @@
 using Umbraco.Cms.Web.Common.PublishedModels;
 using UmbracoProject1.umbraco.models.Records;
 
-namespace UmbracoProject1.umbraco;
+namespace UmbracoProject1.umbraco.Services;
 
 public class ProductService : IProductService
 {
