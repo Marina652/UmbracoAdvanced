@@ -45,6 +45,7 @@ namespace UmbracoProject1
                 .AddNotificationHandler<ContentPublishingNotification, ContentPublishingNotificationHandler>()
                 .AddNotificationHandler<SendingContentNotification, SendingContentNotificationHandler>()
                 .AddNotificationHandler<MenuRenderingNotification, MenuRenderingNotificationHandler>()
+                .AddContactRequestMappings()
                 .Build();
 
             services.AddDbContext<DbContext>(options =>

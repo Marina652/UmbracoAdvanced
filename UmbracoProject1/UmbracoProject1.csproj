@@ -6,16 +6,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="App_Plugins\BlockListElements\Image\Image.html" />
+    <Content Include="App_Plugins\BlockListElements\PeopleListView\peoplelistview.html" />
     <Content Include="App_Plugins\BlockListElements\ProductListing\productlisting.html" />
     <Content Include="App_Plugins\BlockListElements\RichText\RichText.html" />
+    <Content Include="App_Plugins\ContactRequests\contactrequests.html" />
+    <Content Include="App_Plugins\GithubUser\githubuser.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Plugins\BlockListElements\Image\image.controller.js" />
     <None Include="App_Plugins\BlockListElements\package.manifest" />
+    <None Include="App_Plugins\BlockListElements\PeopleListView\package.manifest" />
+    <None Include="App_Plugins\BlockListElements\PeopleListView\peoplelistview.controller.js" />
     <None Include="App_Plugins\BlockListElements\ProductListing\productlisting.controller.js" />
     <None Include="App_Plugins\BlockListElements\ProductListing\productlisting.resource.js" />
     <None Include="App_Plugins\BlockListElements\ProductListing\productlisting.service.js" />
     <None Include="App_Plugins\BlockListElements\RichText\richtext.controller.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Plugins\ContactRequests\contactrequests.controller.js" />
+    <None Include="App_Plugins\ContactRequests\package.manifest" />
+    <None Include="App_Plugins\ContactRequests\contactrequests.resource.js" />
+    <None Include="App_Plugins\ContactRequests\contactrequests.service.js" />
+    <None Include="App_Plugins\GithubUser\githubuser.controller.js" />
+    <None Include="App_Plugins\GithubUser\package.manifest" />
   </ItemGroup>
 
   <ItemGroup>

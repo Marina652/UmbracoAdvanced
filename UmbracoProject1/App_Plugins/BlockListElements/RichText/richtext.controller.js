@@ -3,13 +3,8 @@
 
 
     richtextController.$inject = ['$scope'];
-    console.log(11);
 
     function richtextController($scope) {
-        console.log(12);
-        console.log('scope');
-        console.log($scope);
-        //$scope.title = 'controller';
         var vm = this;
         vm.richtextContent = $scope.block.data.richText;
 

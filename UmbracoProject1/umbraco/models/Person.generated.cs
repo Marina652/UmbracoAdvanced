@@ -74,6 +74,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string FacebookUsername => this.Value<string>(_publishedValueFallback, "facebookUsername");
 
 		///<summary>
+		/// Github user
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.4.0+e52e987")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("githubUser")]
+		public virtual object GithubUser => this.Value(_publishedValueFallback, "githubUser");
+
+		///<summary>
 		/// Instagram Username
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "11.4.0+e52e987")]
